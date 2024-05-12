@@ -20,9 +20,11 @@ I leave some sample codes for Supervised Fine-Tuning(SFT), DPO, especially focus
 
 ```bash
 source setup.sh
+export HUGGINGFACE_API_KEY=<Your API Key>
+export WANDB_API_KEY=<Your API Key>
 ```
 
-- `torch`のインストールのみ、自身のcudaのバージョンと合わせて構築することを推奨します。
+- `torch`のインストールのみ、自身のcudaのバージョンと合わせてインストールすることをおすすめします。
   - 以下からインストール用コマンドを確認
   - [torchのインストール](https://pytorch.org/get-started/locally/)
 
@@ -39,7 +41,8 @@ source setup.sh
 
 - デフォルトのモデルは以下の1B級のLLMが設定されています。データセットは以下を使用しています。
   - モデル: `llm-jp/llm-jp-1.3b-v1.0`
-  - データセット: `ryota39/dpo-ja-45k`
+  - SFTデータセット: `cl-nagoya/auto-wiki-qa`
+  - DPOデータセット: `ryota39/dpo-ja-45k`
 
 ### SFT
 
@@ -85,8 +88,12 @@ python3 scripts/push_to_hub_lora.py
 
 ### DPO
 
-- 現状DPOはLoRAに対応していません。
-- `sft_lora.py`と同様にモデルの学習パラメータを`target_modules`で指定して`peft_config`を`TrianingArgments`に渡せばDPOもLoRAに対応できます。
+
+> [!CAUTION]
+> - 現状DPOはLoRAに対応していません。
+> - `sft_lora.py`と同様にモデルの学習パラメータを`target_modules`で指定して`peft_config`を`TrianingArgments`に渡せばDPOもLoRAに対応できます。
+
+
 ```python
 python3 scripts/dpo.py
 ```
@@ -97,7 +104,8 @@ python3 scripts/dpo.py
 python3 scripts/push_to_hub.py
 ```
 
-> [!NOTE] SFTと同様に、base_model, tokenizer_model, new_modelにコード内の例を参考にパスを指定してください。
+> [!NOTE]
+> SFTと同様に、base_model, tokenizer_model, new_modelにコード内の例を参考にパスを指定してください。
 
 ### モデルの推論
 
@@ -105,9 +113,12 @@ python3 scripts/push_to_hub.py
 python3 scripts/infer.py
 ```
 
-> [!NOTE] アップロードしたモデルを指定してください。デフォルトは自分が学習したモデルがロードされます。
+> [!NOTE]
+> アップロードしたモデルを指定してください。デフォルトは自分が学習したモデルがロードされます。
 
-> [!CAUTION] 公開済みのモデルはテキスト生成の品質が低いことを確認しています。このコードを通して学習したモデルは開発中であることをご留意ください。
+> [!CAUTION]
+> 公開済みのモデルはテキスト生成の品質が低いことを確認しています。このコードを通して学習したモデルは開発中であることをご留意ください。
+
 
 ## 📝メモ
 
