@@ -42,7 +42,7 @@ export WANDB_API_KEY=<Your API Key>
 - デフォルトのモデルは以下の1B級のLLMが設定されています。データセットは以下を使用しています。
   - モデル: `llm-jp/llm-jp-1.3b-v1.0`
   - SFTデータセット: `cl-nagoya/auto-wiki-qa`
-  - DPOデータセット: `ryota39/dpo-ja-45k`
+  - DPOデータセット: `ryota39/dpo-ja-194k`
 
 ### SFT
 

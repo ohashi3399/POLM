@@ -56,7 +56,7 @@ class DPOTrainerKit(object):
         }
         wandb.login(key=os.environ.get('WANDB_API_KEY'))
         wandb.init(
-            project=f"{project_name}-dpo_1b_45k",
+            project=f"{project_name}-dpo_1b_194k",
             name=project_name,
             config=wandb_config
             )
@@ -227,7 +227,7 @@ def get_hh(
 
     # choose dataset
     dataset = load_dataset(
-        "ryota39/dpo-ja-45k",
+        "ryota39/dpo-ja-194k",
         "train",
         cache_dir
         )
